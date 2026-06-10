@@ -12,7 +12,7 @@ class UriTranslatorServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        UriMacro::register();
+        //
     }
 
     /**
@@ -20,6 +20,6 @@ class UriTranslatorServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // No additional services to register
+        UriMacro::register();
     }
 }
