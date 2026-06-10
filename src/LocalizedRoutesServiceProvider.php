@@ -32,7 +32,6 @@ class LocalizedRoutesServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPublishableFiles();
-        $this->registerMacros();
     }
 
     /**
@@ -43,6 +42,7 @@ class LocalizedRoutesServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfig();
+        $this->registerMacros();
         $this->registerLocaleConfig();
         $this->registerLocaleHandler();
         $this->registerUrlGenerator();
