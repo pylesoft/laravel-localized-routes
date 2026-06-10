@@ -176,7 +176,9 @@ abstract class TestCase extends  BaseTestCase
         // Route::has() doesn't seem to be working
         // when you create routes on the fly.
         // So this is a bit of a workaround...
-        return new Collection(Route::getRoutes());
+        return (new Collection(Route::getRoutes()))->filter(function ($route) {
+            return isset($route->action[Config::get('localized-routes.route_action')]);
+        })->values();
     }
 
     /**

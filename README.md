@@ -54,7 +54,7 @@ A convenient way to set up and use localized routes in a Laravel app.
 ## ✅ Requirements
 
 - PHP >= 8.1
-- Laravel >= 10
+- Laravel 10, 11, 12 or 13
 - Composer ^2.3 (for [codezero/composer-preload-files](https://github.com/codezero-be/composer-preload-files))
 
 ## ⬆ Upgrade
@@ -304,8 +304,7 @@ public function resolveRouteBinding($value, $field = null)
 
 ### ☑ Translate Hard-Coded URI Slugs
 
-This package includes [codezero/laravel-uri-translator](https://github.com/codezero-be/laravel-uri-translator).
-This registers a `Lang::uri()` macro that enables you to translate individual, hard-coded URI slugs.
+This package registers a `Lang::uri()` macro that enables you to translate individual, hard-coded URI slugs.
 Route parameters will not be translated by this macro.
 
 Routes with translated URIs need to have a name in order to generate localized versions of it using the `route()` helper or the `Route::localizedUrl()` macro.
