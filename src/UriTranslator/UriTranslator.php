@@ -11,13 +11,13 @@ class UriTranslator
     /**
      * Translate a URI.
      *
-     * @param string $uri
-     * @param string|null $locale
-     * @param string|null $namespace
-     *
-     * @return string
+     * @param string $uri The URI to translate
+     * @param string|null $locale The locale to translate to
+     * @param string|null $namespace The namespace for translations
+     * 
+     * @return string The translated URI
      */
-    public function translate($uri, $locale = null, $namespace = null)
+    public function translate(string $uri, ?string $locale = null, ?string $namespace = null): string
     {
         $fullUriKey = $this->buildTranslationKey($uri, $namespace);
 
@@ -30,12 +30,12 @@ class UriTranslator
 
         // Attempt to translate each segment individually. If there is no translation
         // for a specific segment, then its original value will be used.
-        $translations = $segments->map(function ($segment) use ($locale, $namespace) {
+        $translations = $segments->map(function (string $segment) use ($locale, $namespace): string {
             $segmentKey = $this->buildTranslationKey($segment, $namespace);
 
             // If the segment is not a placeholder and the segment
             // has a translation, then update the segment.
-            if ( ! Str::startsWith($segment, '{') && Lang::has($segmentKey, $locale)) {
+            if (!Str::startsWith($segment, '{') && Lang::has($segmentKey, $locale)) {
                 $segment = Lang::get($segmentKey, [], $locale);
             }
 
@@ -49,11 +49,11 @@ class UriTranslator
     /**
      * Split the URI into a Collection of segments.
      *
-     * @param string $uri
-     *
-     * @return \Illuminate\Support\Collection
+     * @param string $uri The URI to split
+     * 
+     * @return \Illuminate\Support\Collection<int, string> Collection of URI segments
      */
-    protected function splitUriIntoSegments($uri)
+    protected function splitUriIntoSegments(string $uri): Collection
     {
         $uri = trim($uri, '/');
         $segments = explode('/', $uri);
@@ -64,12 +64,12 @@ class UriTranslator
     /**
      * Build a translation key, including the namespace and file name.
      *
-     * @param string $key
-     * @param string|null $namespace
-     *
-     * @return string
+     * @param string $key The translation key
+     * @param string|null $namespace The namespace for translations
+     * 
+     * @return string The complete translation key
      */
-    protected function buildTranslationKey($key, $namespace)
+    protected function buildTranslationKey(string $key, ?string $namespace = null): string
     {
         $namespace = $namespace ? "{$namespace}::" : '';
         $file = $this->getTranslationFileName();
@@ -80,9 +80,9 @@ class UriTranslator
     /**
      * Get the file name that holds the URI translations.
      *
-     * @return string
+     * @return string The translation file name
      */
-    protected function getTranslationFileName()
+    protected function getTranslationFileName(): string
     {
         return 'routes';
     }
